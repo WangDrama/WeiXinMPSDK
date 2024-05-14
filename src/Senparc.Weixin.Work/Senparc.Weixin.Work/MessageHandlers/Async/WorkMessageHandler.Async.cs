@@ -852,7 +852,7 @@ namespace Senparc.Weixin.Work.MessageHandlers
                 case ThirdPartyInfo.CREATE_AUTH:
                     return OnThirdPartyEvent_Create_AuthAsync((RequestMessageInfo_Create_Auth)thirdPartyInfo);
                 case ThirdPartyInfo.REGISTER_CORP:
-                    return OnThirdPartyEvent_REGISTER_CORPAsync((RequestMessager_Register_Corp)thirdPartyInfo);
+                    return OnThirdPartyEvent_Register_CorpAsync((RequestMessager_Register_Corp)thirdPartyInfo);
                 case ThirdPartyInfo.RESET_PERMANENT_CODE://重置永久授权码通知
                     return OnThirdPartyEvent_Reset_Permanent_CodeAsync((RequestMessageInfo_Reset_Permanent_Code)thirdPartyInfo);
                 // 通用事件已统一流转至内部模式

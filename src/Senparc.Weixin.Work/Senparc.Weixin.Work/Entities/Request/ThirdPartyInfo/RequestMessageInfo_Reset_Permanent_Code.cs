@@ -11,13 +11,13 @@
 
 namespace Senparc.Weixin.Work.Entities
 {
-    /// <summary>
-    /// 代开发应用=>授权客户=>应用Secret 重新获取通知
-    /// </summary>
-    public class RequestMessageInfo_Reset_Permanent_Code : ThirdPartyInfoBase, IThirdPartyInfoBase
-    {
-        public override ThirdPartyInfo InfoType => ThirdPartyInfo.RESET_PERMANENT_CODE;
+    ///// <summary>
+    ///// 代开发应用=>授权客户=>应用Secret 重新获取通知
+    ///// </summary>
+    //public class RequestMessageInfo_Reset_Permanent_Code : ThirdPartyInfoBase, IThirdPartyInfoBase
+    //{
+    //    public override ThirdPartyInfo InfoType => ThirdPartyInfo.RESET_PERMANENT_CODE;
 
-        public string AuthCode { get; set; }
-    }
+    //    public string AuthCode { get; set; }
+    //}
 }

@@ -206,7 +206,6 @@ namespace Senparc.Weixin
         {
             //注册 CO2NET 全局
             var register = app.UseSenparcGlobal(senparcSetting, globalRegisterConfigure, autoScanExtensionCacheStrategies, extensionCacheStrategiesFunc);
-
             return WeixinRegister.UseSenparcWeixin(register.registerService, senparcWeixinSetting, senparcSetting);
         }
 #endif

@@ -298,10 +298,6 @@ namespace Senparc.Weixin.Work
         /// </summary>
         REGISTER_CORP,
         /// <summary>
-        /// 重置永久授权码通知
-        /// </summary>
-        RESET_PERMANENT_CODE,
-        /// <summary>
         /// 开启订单
         /// </summary>
         OPEN_ORDER,
