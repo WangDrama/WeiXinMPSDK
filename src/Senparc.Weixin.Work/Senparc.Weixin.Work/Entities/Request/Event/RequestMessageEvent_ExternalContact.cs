@@ -27,16 +27,21 @@
 namespace Senparc.Weixin.Work.Entities.Request.Event
 {
     /// <summary>
-    /// 上报企业客户变更事件
+    /// 上报企业客户变更事件 继承服务商接口
     /// </summary>
-    public interface IRequestMessageEvent_Change_ExternalContact_Base : IRequestMessageEventBase
+    public interface IRequestMessageEvent_Change_ExternalContact_Base : IRequestMessageEventBase, IThirdPartyAuthCorpIdInfo, IRequestMessageEventUserID
     {
-        string SuiteId { get; set; }
-        string AuthCorpId { get; set; }
         ExternalContactChangeType ChangeType
         {
             get;
         }
+    }
+    public interface IRequestMessageEventUserID
+    {
+        /// <summary>
+        /// 企业服务人员的UserID
+        /// </summary>
+        string UserID { get; set; }
     }
 
     public class RequestMessageEvent_Change_ExternalContact_Base : RequestMessageEventBase, IRequestMessageEvent_Change_ExternalContact_Base
@@ -51,6 +56,17 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
         {
             get { return ExternalContactChangeType.add_external_contact; }
         }
+
+        public virtual ThirdPartyInfo InfoType 
+        {
+            get { return ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT; }
+        }
+
+        public string TimeStamp { get; set; }
+        /// <summary>
+        /// 企业服务人员的UserID
+        /// </summary>
+        public string UserID { get; set; }
     }
 
     /// <summary>
@@ -58,10 +74,6 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
     /// </summary>
     public class RequestMessageEvent_Change_ExternalContact_Add : RequestMessageEvent_Change_ExternalContact_Base
     {
-        /// <summary>
-        /// 企业服务人员的UserID
-        /// </summary>
-        public string UserID { get; set; }
         /// <summary>
         /// 外部联系人的userid
         /// </summary>
@@ -83,10 +95,6 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
     {
         public override ExternalContactChangeType ChangeType => ExternalContactChangeType.edit_external_contact;
 
-        /// <summary>
-        /// 企业服务人员的UserID
-        /// </summary>
-        public string UserID { get; set; }
         /// <summary>
         /// 外部联系人的userid，注意不是企业成员的帐号
         /// </summary>
@@ -113,16 +121,12 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
         public override ExternalContactChangeType ChangeType => ExternalContactChangeType.del_external_contact;
 
         /// <summary>
-        /// 企业服务人员的UserID
-        /// </summary>
-        public string UserID { get; set; }
-        /// <summary>
         /// 外部联系人的userid
         /// </summary>
         public string ExternalUserID { get; set; }
         /// <summary>
-        /// 删除客户的操作来源，DELETE_BY_TRANSFER表示此客户是因在职继承自动被转接成员删除
-        /// 
+        /// 如果是在职分配，分配成功会有原添加成员删除事件。此字段为DELETE_BY_TRANSFER
+        /// <Source><![CDATA[DELETE_BY_TRANSFER]]></Source>
         /// </summary>
         public string Source { get; set; }
     }
@@ -162,6 +166,26 @@ namespace Senparc.Weixin.Work.Entities.Request.Event
     public class RequestMessageEvent_Change_ExternalContact_MsgAudit : RequestMessageEvent_Change_ExternalContact_Add
     {
         public override ExternalContactChangeType ChangeType => ExternalContactChangeType.msg_audit_approved;
+    }
+
+    /// <summary>
+    /// 客户接替失败事件
+    /// </summary>
+    public class RequestMessageEvent_Change_ExternalContact_TransferFail : RequestMessageEvent_Change_ExternalContact_Base
+    {
+        public override ExternalContactChangeType ChangeType => ExternalContactChangeType.transfer_fail;
+        /// <summary>
+        /// 接替失败的企业服务人员的UserID
+        /// </summary>
+        public new string UserID { get; set; }
+        /// <summary>
+        /// 外部联系人的userid
+        /// </summary>
+        public string ExternalUserID { get; set; }
+        /// <summary>
+        /// 接替失败的原因, customer_refused-客户拒绝， customer_limit_exceed-接替成员的客户数达到上限
+        /// </summary>
+        public string FailReason { get; set; }
     }
 
     /// <summary>

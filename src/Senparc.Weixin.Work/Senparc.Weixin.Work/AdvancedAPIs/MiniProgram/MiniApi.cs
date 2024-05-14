@@ -62,7 +62,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return ApiHandlerWapper.TryCommonApi(accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/miniprogram/jscode2session?suite_access_token={0}&js_code={1}&grant_type=authorization_code", suiteAccessToken.AsUrlData(), code);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/miniprogram/jscode2session?suite_access_token={0}&js_code={1}&grant_type=authorization_code", accessToken.AsUrlData(), code);
 
                 return CommonJsonSend.Send<LoginCheckResultJson>(null, url, null, CommonJsonSendType.GET, timeOut);
             }, suiteAccessToken);
@@ -121,7 +121,7 @@ namespace Senparc.Weixin.Work.AdvancedAPIs
         {
             return await ApiHandlerWapper.TryCommonApiAsync(async accessToken =>
             {
-                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/miniprogram/jscode2session?suite_access_token={0}&js_code={1}&grant_type=authorization_code", suiteAccessToken.AsUrlData(), code);
+                var url = string.Format(Config.ApiWorkHost + "/cgi-bin/service/miniprogram/jscode2session?suite_access_token={0}&js_code={1}&grant_type=authorization_code", accessToken.AsUrlData(), code);
 
                 return await CommonJsonSend.SendAsync<LoginCheckResultJson>(null, url, null, CommonJsonSendType.GET, timeOut).ConfigureAwait(false);
             }, suiteAccessToken).ConfigureAwait(false);

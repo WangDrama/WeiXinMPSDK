@@ -29,7 +29,7 @@ namespace Senparc.Weixin.Work.Entities
     /// <summary>
     /// 客户群变更事件
     /// </summary>
-    public class RequestMessageEvent_Change_External_Chat_Base : RequestMessageEventBase, IRequestMessageEventBase
+    public class RequestMessageEvent_Change_External_Chat_Base : RequestMessageEventBase, IRequestMessageEventBase,IThirdPartyAuthCorpIdInfo
     {
         public override Event Event
         {
@@ -42,6 +42,13 @@ namespace Senparc.Weixin.Work.Entities
         public string ChatId { get; set; }
 
         public virtual ExternalChatChangeType ChangeType { get { return ExternalChatChangeType.create; } }
+
+        public string AuthCorpId { get; set; }
+
+        public ThirdPartyInfo InfoType { get { return ThirdPartyInfo.CHANGE_EXTERNAL_CONTACT; } }
+
+        public string SuiteId { get; set; }
+        public string TimeStamp { get; set; }
     }
 
     public class RequestMessageEvent_Change_External_Chat_Create : RequestMessageEvent_Change_External_Chat_Base
